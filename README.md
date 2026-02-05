@@ -39,6 +39,32 @@ function buscar(){
 }
 </script>
 
-</body>
+<script>
+fetch("clientes.json")
+  .then(response => response.json())
+  .then(clientes => {
+
+    window.buscarCliente = function () {
+      const valor = document.getElementById("busqueda").value.trim().toLowerCase();
+      const resultado = document.getElementById("resultado");
+
+      const cliente = clientes.find(c =>
+        c.cedula === valor || c.nombre.toLowerCase() === valor
+      );
+
+      if (cliente) {
+        resultado.innerHTML =
+          "Nombre: " + cliente.nombre + "<br>" +
+          "Código: " + cliente.codigo;
+      } else {
+        resultado.innerHTML = "Cliente no encontrado";
+      }
+    };
+
+  });
+</script></body><input id="busqueda" placeholder="Cédula o nombre">
+<button onclick="buscarCliente()">Buscar</button>
+
+<div id="resultado"></div>
 </html> Codigo-cliente
 Consulta de codigo de deposito
